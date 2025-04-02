@@ -1,8 +1,28 @@
 @import "tailwindcss";
 
+@theme {
+  --color-menu: #fff;
+  --color-background: #000;
+
+  --shadow-cart: 0px 20px 50px -20px rgba(29, 32, 38, 0.5);
+}
+
 @import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&display=swap");
 
 body {
   font-family: "Kumbh Sans", sans-serif;
   min-height: 100vh;
+  position: relative;
+}
+
+body.active {
+  background: black;
+  opacity: 0.75;
+}
+
+.menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
 }
