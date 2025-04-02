@@ -4,15 +4,29 @@ import cartIcon from "../../public/assets/icon-cart.svg";
 import personAvatar from "../../public/assets/image-avatar.png";
 import closeIcon from "../../public/assets/icon-close.svg";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function Header() {
+interface IProps {
+  currentIndex: number;
+  setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const Header: React.FC<IProps> = ({ setCurrentIndex }) => {
   const [activeMenu, setActiveMenu] = useState<boolean>(false);
   const [activeCart, setActiveCart] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const menu: string[] = ["Collections", "Men", "Women", "About", "Contact"];
 
   const openMenu = () => {
     setActiveMenu(true);
+  };
+
+  const handleMainPage = () => {
+    navigate("/");
+    setActiveCart(false);
+    setActiveMenu(false);
+    setCurrentIndex(0);
   };
 
   return (
@@ -22,7 +36,7 @@ export default function Header() {
       >
         <div className="left flex flex-row items-center gap-[16px]">
           <img src={menuIcon} alt="menu icon" onClick={openMenu} />
-          <img src={logo} alt="sneakers logo  " />
+          <img src={logo} alt="sneakers logo" onClick={handleMainPage} />
         </div>
         <div className="right flex items-center gap-[22.18px]">
           <img
@@ -59,8 +73,8 @@ export default function Header() {
         </>
       )}
       {activeCart ? (
-        <div className="cart-div flex justify-center ">
-          <div className="cart w-[360px] mt-[36px] shadow-cart rounded-[10px] flex flex-col px-auto pt-[24px] px-[24px] pb-[32px]">
+        <div className="cart-div flex justify-center absolute w-full m-auto z-50  ">
+          <div className="cart w-[360px] mt-[36px] shadow-cart rounded-[10px] bg-menu flex flex-col px-auto pt-[24px] px-[24px] pb-[32px]">
             <p className="text-[#1D2026] text-[16px] font-bold">Cart</p>
             <div className="divider w-[360px] border-[1px] border-[#E4E9F2] relative left-[-24px] mt-[24px]"></div>
             <p className="mt-[77px] mb-[53px] text-center text-[#69707D] text-[16px] font-bold">
@@ -73,4 +87,6 @@ export default function Header() {
       )}
     </>
   );
-}
+};
+
+export default Header;
