@@ -3,8 +3,13 @@
 @theme {
   --color-menu: #fff;
   --color-background: #000;
+  --color-discount: #ffeee2;
+  --color-amount: #f6f8fd;
+  --color-button: #ff7e1b;
+  --color-cart: #fff;
 
   --shadow-cart: 0px 20px 50px -20px rgba(29, 32, 38, 0.5);
+  --shadow-button: 0px 20px 50px -20px #ff7e1b;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&display=swap");
@@ -25,4 +30,12 @@ body.active {
   top: 0;
   left: 0;
   z-index: 50;
+}
+
+.fill-cart {
+  filter: brightness(0) invert(1);
+}
+
+.fill-cart {
+  fill: white;
 }

@@ -4,7 +4,6 @@ import mainItemImage3 from "../../public/assets/image-product-3.jpg";
 import mainItemImage4 from "../../public/assets/image-product-4.jpg";
 import nextIcon from "../../public/assets/icon-next.svg";
 import prevIcon from "../../public/assets/icon-previous.svg";
-import { useState } from "react";
 
 interface IProps {
   currentIndex: number;
@@ -31,7 +30,7 @@ const ItemImage: React.FC<IProps> = ({ currentIndex, setCurrentIndex }) => {
 
   return (
     <>
-      <div className="images mt-[28px] relative">
+      <div className="images mt-[28px] relative flex flex-col items-center">
         <div className="main-image">
           <img src={images[currentIndex]} alt="main item image" />
         </div>

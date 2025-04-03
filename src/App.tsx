@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Header from "./components/Header";
 import ItemImage from "./components/ItemImage";
+import AddToCart from "./components/AddToCart";
 
 function App() {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -12,6 +13,7 @@ function App() {
         currentIndex={currentIndex}
         setCurrentIndex={setCurrentIndex}
       />
+      <AddToCart />
     </div>
   );
 }
