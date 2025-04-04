@@ -1,13 +1,29 @@
 import plusIcon from "../../public/assets/icon-plus.svg";
 import minusIcon from "../../public/assets/icon-minus.svg";
 import cartImage from "../../public/assets/icon-cart.svg";
-import { useState } from "react";
+import { SetStateAction } from "react";
+import React from "react";
+import { TCartItemType } from "../App";
 
-const AddToCart = () => {
-  const [count, setCount] = useState<number>(0);
-  const [price, setPrice] = useState<number>(0);
-  const [discount, setDiscount] = useState<number>(0);
+interface AddToCartProps {
+  setCartItems: React.Dispatch<React.SetStateAction<TCartItemType[]>>;
+  price: number;
+  setPrice: React.Dispatch<React.SetStateAction<number>>;
+  discount: number;
+  setDiscount: React.Dispatch<React.SetStateAction<number>>;
+  count: number;
+  setCount: React.Dispatch<SetStateAction<number>>;
+}
 
+const AddToCart: React.FC<AddToCartProps> = ({
+  setCartItems,
+  price,
+  setPrice,
+  discount,
+  setDiscount,
+  count,
+  setCount,
+}) => {
   const handleMinus = () => {
     if (count > 0) {
       setCount((prevCount) => {
@@ -28,6 +44,20 @@ const AddToCart = () => {
     });
   };
 
+  const handleAddToCart = () => {
+    if (count == 0) return;
+    const newItem = {
+      id: 1,
+      name: "Fall Limited Edition Sneakers",
+      image: "/assets/image-product-1-thumbnail.jpg",
+      price: price,
+      discountPrice: discount,
+      quantity: count,
+    };
+
+    setCartItems([newItem]);
+  };
+
   return (
     <div className="mt-[24px] flex flex-col items-center px-[24px]">
       <div className="basic-info">
@@ -43,7 +73,7 @@ const AddToCart = () => {
           the weather can offer.
         </p>
       </div>
-      <div className="prices mt-[28px] flex w-full  justify-between items-center">
+      <div className="prices mt-[28px] flex w-full  justify-between items-center ">
         <div className="discount flex gap-[16px]">
           <p className="text-[#1D2026] text-[28px] font-bold">{`$ ${discount}.00`}</p>
           <div className="discount-box w-[51px] py-[7px] bg-discount rounded-[6px] flex items-center justify-center">
@@ -68,7 +98,12 @@ const AddToCart = () => {
             alt="cart image"
             className="fill-cart w-[17px] h-[16px]"
           />
-          <p className="text-[#fff] text-[16px] font-bold">Add to cart</p>
+          <p
+            onClick={handleAddToCart}
+            className="text-[#fff] text-[16px] font-bold"
+          >
+            Add to cart
+          </p>
         </button>
       </div>
     </div>

@@ -3,15 +3,30 @@ import logo from "../../public/assets/logo.svg";
 import cartIcon from "../../public/assets/icon-cart.svg";
 import personAvatar from "../../public/assets/image-avatar.png";
 import closeIcon from "../../public/assets/icon-close.svg";
+import deleteIcon from "../../public/assets/icon-delete.svg";
 import { useState } from "react";
+import { TCartItemType } from "../App";
 import { useNavigate } from "react-router-dom";
 
 interface IProps {
-  currentIndex: number;
   setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
+  cartItems: TCartItemType[];
+  setCartItems: React.Dispatch<React.SetStateAction<TCartItemType[]>>;
+  count: number;
+  setCount: React.Dispatch<React.SetStateAction<number>>;
+  setPrice: React.Dispatch<React.SetStateAction<number>>;
+  setDiscount: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const Header: React.FC<IProps> = ({ setCurrentIndex }) => {
+const Header: React.FC<IProps> = ({
+  setCurrentIndex,
+  cartItems,
+  setCartItems,
+  count,
+  setCount,
+  setPrice,
+  setDiscount,
+}) => {
   const [activeMenu, setActiveMenu] = useState<boolean>(false);
   const [activeCart, setActiveCart] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -27,6 +42,13 @@ const Header: React.FC<IProps> = ({ setCurrentIndex }) => {
     setActiveCart(false);
     setActiveMenu(false);
     setCurrentIndex(0);
+    setCount(0);
+    setPrice(0);
+    setDiscount(0);
+  };
+
+  const handleDelete = () => {
+    setCartItems([]);
   };
 
   return (
@@ -39,11 +61,27 @@ const Header: React.FC<IProps> = ({ setCurrentIndex }) => {
           <img src={logo} alt="sneakers logo" onClick={handleMainPage} />
         </div>
         <div className="right flex items-center gap-[22.18px]">
-          <img
-            src={cartIcon}
-            alt="cart icon"
-            onClick={() => setActiveCart(!activeCart)}
-          />
+          {cartItems.length > 0 ? (
+            <div className="flex flex-col items-center justify-center">
+              <div className="amount w-[19px] h-[13px] rounded-[6.5px] bg-button ml-[9px] absolute top-[16px]"></div>
+              <img
+                className="cart-image "
+                src={cartIcon}
+                alt="cart icon"
+                onClick={() => setActiveCart(!activeCart)}
+              />
+              <p className="text-[10px] text-[#fff] font-bold absolute top-[15px] right-[74px] ">
+                {count}
+              </p>
+            </div>
+          ) : (
+            <img
+              src={cartIcon}
+              alt="cart icon"
+              onClick={() => setActiveCart(!activeCart)}
+            />
+          )}
+
           <img
             src={personAvatar}
             alt="person avatar"
@@ -77,9 +115,41 @@ const Header: React.FC<IProps> = ({ setCurrentIndex }) => {
           <div className="cart w-[360px] mt-[36px] shadow-cart rounded-[10px] bg-menu flex flex-col px-auto pt-[24px] px-[24px] pb-[32px]">
             <p className="text-[#1D2026] text-[16px] font-bold">Cart</p>
             <div className="divider w-[360px] border-[1px] border-[#E4E9F2] relative left-[-24px] mt-[24px]"></div>
-            <p className="mt-[77px] mb-[53px] text-center text-[#69707D] text-[16px] font-bold">
-              Your cart is empty.
-            </p>
+            {cartItems.length == 0 ? (
+              <p className="mt-[77px] mb-[53px] text-center text-[#69707D] text-[16px] font-bold">
+                Your cart is empty.
+              </p>
+            ) : (
+              cartItems.map((item) => (
+                <div className="products flex flex-col">
+                  <div className="item-info flex gap-[16px] items-center mt-[24px]">
+                    <img
+                      className="w-[50px] h-[50px] rounded-[4px]"
+                      src={item.image}
+                      alt="image thumbnail "
+                    />
+                    <div className="text">
+                      <p className="text-[#69707D] text-[16px] font-normal">
+                        {item.name}
+                      </p>
+                      <div className="prices flex gap-[4px]">
+                        <p className="text-[#69707D] text-[16px] font-normal">{`$${item.discountPrice}.00`}</p>
+                        <p className="text-[#69707D] text-[16px] font-normal">{`x${item.quantity}`}</p>
+                        <p className="text-[#1D2026] font-bold text-[16px]">{`$${item.price}.00`}</p>
+                      </div>
+                    </div>
+                    <img
+                      src={deleteIcon}
+                      alt="delete icon"
+                      onClick={handleDelete}
+                    />
+                  </div>
+                  <button className="w-[312px] py-[18px] rounded-[10px] bg-button mt-[24px] text-[#Fff] font-bold text-[16px]">
+                    Checkout
+                  </button>
+                </div>
+              ))
+            )}
           </div>
         </div>
       ) : (
