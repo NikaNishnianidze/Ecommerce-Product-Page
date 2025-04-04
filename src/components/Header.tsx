@@ -137,7 +137,7 @@ const Header: React.FC<IProps> = ({
         </>
       )}
       {activeCart ? (
-        <div className="cart-div flex justify-center absolute w-full m-auto z-50 ml-[450px] ">
+        <div className="cart-div flex justify-center absolute w-full m-auto z-50 dk:ml-[450px] ">
           <div className="cart w-[360px] mt-[36px] shadow-cart rounded-[10px] bg-menu flex flex-col px-auto pt-[24px] px-[24px] pb-[32px]">
             <p className="text-[#1D2026] text-[16px] font-bold">Cart</p>
             <div className="divider w-[360px] border-[1px] border-[#E4E9F2] relative left-[-24px] mt-[24px]"></div>
