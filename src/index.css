@@ -7,9 +7,14 @@
   --color-amount: #f6f8fd;
   --color-button: #ff7e1b;
   --color-cart: #fff;
+  --color-button-hover: #ffab6a;
 
   --shadow-cart: 0px 20px 50px -20px rgba(29, 32, 38, 0.5);
   --shadow-button: 0px 20px 50px -20px #ff7e1b;
+
+  --breakpoint-mb: 375px;
+  --breakpoint-tb: 768px;
+  --breakpoint-dk: 1440px;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100..900&display=swap");
@@ -38,4 +43,12 @@ body.active {
 
 .fill-cart {
   fill: white;
+}
+
+.xIcon {
+  filter: brightness(0) invert(1);
+}
+
+.xIcon {
+  fill: #fff;
 }

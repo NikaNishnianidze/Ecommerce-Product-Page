@@ -29,6 +29,7 @@ const Header: React.FC<IProps> = ({
 }) => {
   const [activeMenu, setActiveMenu] = useState<boolean>(false);
   const [activeCart, setActiveCart] = useState<boolean>(false);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const navigate = useNavigate();
 
   const menu: string[] = ["Collections", "Men", "Women", "About", "Contact"];
@@ -45,37 +46,61 @@ const Header: React.FC<IProps> = ({
     setCount(0);
     setPrice(0);
     setDiscount(0);
+    setActiveIndex(null);
   };
 
   const handleDelete = () => {
     setCartItems([]);
   };
 
+  const handleActive = (index: number) => {
+    setActiveIndex(index);
+  };
+
   return (
     <>
       <header
-        className={`flex flex-row items-center justify-between px-[24px] pt-[20px]  relative z-50 `}
+        className={`flex flex-row items-center justify-between  px-[24px] pt-[20px]  relative z-50 dk:px-[165px] dk:pt-[43px]`}
       >
         <div className="left flex flex-row items-center gap-[16px]">
-          <img src={menuIcon} alt="menu icon" onClick={openMenu} />
+          <img
+            src={menuIcon}
+            alt="menu icon"
+            onClick={openMenu}
+            className="dk:hidden"
+          />
           <img src={logo} alt="sneakers logo" onClick={handleMainPage} />
+          <div className="mb:hidden dk:block dk:flex items-center ">
+            <ul className="flex flex-row items-center gap-[32px] ml-[40px] text-[#69707D] text-[15px] font-normal">
+              {menu.map((item, index) => (
+                <div className="flex flex-col items-center" key={index}>
+                  <li onClick={() => handleActive(index)}>{item}</li>
+                  {activeIndex == index && (
+                    <div className="rectangle w-[58px] h-[4px] bg-button absolute top-[120px]"></div>
+                  )}
+                </div>
+              ))}
+            </ul>
+          </div>
         </div>
+
         <div className="right flex items-center gap-[22.18px]">
           {cartItems.length > 0 ? (
             <div className="flex flex-col items-center justify-center">
-              <div className="amount w-[19px] h-[13px] rounded-[6.5px] bg-button ml-[9px] absolute top-[16px]"></div>
+              <div className="amount w-[19px] h-[13px] rounded-[6.5px] bg-button ml-[9px] absolute top-[16px] dk:top-[50px] dk:ml-[12px]"></div>
               <img
                 className="cart-image "
                 src={cartIcon}
                 alt="cart icon"
                 onClick={() => setActiveCart(!activeCart)}
               />
-              <p className="text-[10px] text-[#fff] font-bold absolute top-[15px] right-[74px] ">
+              <p className="text-[10px] text-[#fff] font-bold absolute top-[15px] right-[74px]  dk:right-[240px] dk:top-[49px]">
                 {count}
               </p>
             </div>
           ) : (
             <img
+              className="cart-image"
               src={cartIcon}
               alt="cart icon"
               onClick={() => setActiveCart(!activeCart)}
@@ -85,10 +110,11 @@ const Header: React.FC<IProps> = ({
           <img
             src={personAvatar}
             alt="person avatar"
-            className="w-[24px] h-[24px]"
+            className="w-[24px] h-[24px] dk:w-[50px] dk:h-[50px] hover:border-[2px] hover:border-[#FF7E1B] hover:rounded-[50%]"
           />
         </div>
       </header>
+      <div className="divider2 w-[1110px] border-[1px] border-[#E4E9F2] relative left-43 top-[30px] mb:hidden dk:block"></div>
       {activeMenu && (
         <>
           <div
@@ -102,7 +128,7 @@ const Header: React.FC<IProps> = ({
               alt="close X icon"
               onClick={() => setActiveMenu(false)}
             />
-            <ul className="mt-[53.78px] flex flex-col gap-[20px] text-[#1D2026] text-[18px] font-bold">
+            <ul className="mt-[53.78px] flex flex-col gap-[20px] text-[#1D2026] text-[18px] font-bold dk:block">
               {menu.map((item) => (
                 <li>{item}</li>
               ))}
@@ -111,7 +137,7 @@ const Header: React.FC<IProps> = ({
         </>
       )}
       {activeCart ? (
-        <div className="cart-div flex justify-center absolute w-full m-auto z-50  ">
+        <div className="cart-div flex justify-center absolute w-full m-auto z-50 ml-[450px] ">
           <div className="cart w-[360px] mt-[36px] shadow-cart rounded-[10px] bg-menu flex flex-col px-auto pt-[24px] px-[24px] pb-[32px]">
             <p className="text-[#1D2026] text-[16px] font-bold">Cart</p>
             <div className="divider w-[360px] border-[1px] border-[#E4E9F2] relative left-[-24px] mt-[24px]"></div>
@@ -121,7 +147,7 @@ const Header: React.FC<IProps> = ({
               </p>
             ) : (
               cartItems.map((item) => (
-                <div className="products flex flex-col">
+                <div className="products flex flex-col" key={item.id}>
                   <div className="item-info flex gap-[16px] items-center mt-[24px]">
                     <img
                       className="w-[50px] h-[50px] rounded-[4px]"

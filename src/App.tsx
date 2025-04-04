@@ -30,19 +30,21 @@ function App() {
         setDiscount={setDiscount}
         setPrice={setPrice}
       />
-      <ItemImage
-        currentIndex={currentIndex}
-        setCurrentIndex={setCurrentIndex}
-      />
-      <AddToCart
-        price={price}
-        setPrice={setPrice}
-        discount={discount}
-        setDiscount={setDiscount}
-        setCartItems={setCartItems}
-        count={count}
-        setCount={setCount}
-      />
+      <div className="div mb:flex mb:flex-col dk:flex-row dk:mt-[136px] dk:items-center dk:justify-center dk:gap-[125px]">
+        <ItemImage
+          currentIndex={currentIndex}
+          setCurrentIndex={setCurrentIndex}
+        />
+        <AddToCart
+          price={price}
+          setPrice={setPrice}
+          discount={discount}
+          setDiscount={setDiscount}
+          setCartItems={setCartItems}
+          count={count}
+          setCount={setCount}
+        />
+      </div>
     </div>
   );
 }
