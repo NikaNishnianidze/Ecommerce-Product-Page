@@ -40,7 +40,7 @@ const ItemImage: React.FC<IProps> = ({ currentIndex, setCurrentIndex }) => {
   return (
     <div>
       <div className="images-mobile mt-[28px] relative flex flex-col items-center mb:block dk:hidden">
-        <div className="main-image">
+        <div className="main-image flex flex-col items-center">
           <img src={images[currentIndex]} alt="main item image" />
         </div>
         <div className="arrows absolute inset-0 flex justify-between items-center px-4 ">

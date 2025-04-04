@@ -67,13 +67,13 @@ const AddToCart: React.FC<AddToCartProps> = ({
         <p className="mt-[19px] text-[28px] text-[#1D2026] font-bold w-[327px] dk:text-[44px] dk:w-[445px]">
           Fall Limited Edition Sneakers
         </p>
-        <p className="text-[#69707D] text-[15px] font-normal mt-[15px] dk:w-[445px] dk:text-[16px]">
+        <p className="text-[#69707D] text-[15px] font-normal mt-[15px] max-w-[445px] dk:w-[445px] dk:text-[16px]">
           These low-profile sneakers are your perfect casual wear companion.
           Featuring a durable rubber outer sole, they'll withstand everything
           the weather can offer.
         </p>
       </div>
-      <div className="prices mt-[28px] flex w-full  justify-between items-center dk:flex-col dk:items-start dk:gap-[10px]">
+      <div className="prices mt-[28px] flex w-full mb:max-w-[600px] justify-between items-center dk:flex-col dk:items-start dk:gap-[10px]">
         <div className="discount flex gap-[16px]">
           <p className="text-[#1D2026] text-[28px] font-bold">{`$ ${discount}.00`}</p>
           <div className="discount-box w-[51px] py-[7px] bg-discount rounded-[16px] flex items-center justify-center dk:py-[4px] dk:px-[8px]">
