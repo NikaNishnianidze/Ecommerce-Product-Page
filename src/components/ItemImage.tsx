@@ -57,17 +57,26 @@ const ItemImage: React.FC<IProps> = ({ currentIndex, setCurrentIndex }) => {
       <div className="images-desktop dk:block mb:hidden dk:flex dk:flex-col dk:gap-[32px]">
         <div className="main-image">
           <img
-            src={mainItemImage1}
+            src={images[currentIndex]}
             onClick={() => setIsLightboxOpen(true)}
             className="w-[445px] h-[445px] rounded-[15px] cursor-pointer"
           />
         </div>
 
         <div className="thumbnails flex flex-row gap-[31px]">
-          <img src={thumbnail1} className="w-[88px] h-[88px] rounded-[10px]" />
-          <img src={thumbnail2} className="w-[88px] h-[88px] rounded-[10px]" />
-          <img src={thumbnail3} className="w-[88px] h-[88px] rounded-[10px]" />
-          <img src={thumbnail4} className="w-[88px] h-[88px] rounded-[10px]" />
+          {thumbnails.map((thumb, index) => (
+            <img
+              key={index}
+              src={thumb}
+              alt={`Thumbnail ${index + 1}`}
+              onClick={() => setCurrentIndex(index)}
+              className={`w-[88px] h-[88px] rounded-[10px] cursor-pointer border-2 ${
+                currentIndex === index
+                  ? "border-[#FF7E1B] opacity-50"
+                  : "border-transparent"
+              }`}
+            />
+          ))}
         </div>
         {isLightboxOpen && (
           <div className="fixed inset-0 bg-background/75 z-50 flex justify-center items-center">
